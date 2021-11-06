@@ -1,0 +1,282 @@
+"""
+Programme réalisé par Cornec, Alexandre, 1G3
+et Gabin, Caiveau, 1G3
+"""
+
+import pygame
+import pygame as pg
+#initialistaion graphique
+pygame.init()
+#générer la fenêtre
+pygame.display.set_caption("jeu d'aventure")
+screen = pygame.display.set_mode((640,360))
+
+#Importer l'arrière plan
+background = pygame.image.load('image/fond.jpg')
+
+
+#les images
+image1=pygame.image.load("image/cascade.png")
+image2=pygame.image.load("image/Amigasa.png")
+image3=pygame.image.load("image/Kibi.png")
+image4=pygame.image.load("image/ruines_oden.png")
+image5=pygame.image.load("image/Ringo.png")
+image6=pygame.image.load("image/capitale.png")
+image7=pygame.image.load("image/Ebisu.png")
+image8=pygame.image.load("image/Udon.png")
+image9=pygame.image.load("image/Habu.png")
+image10=pygame.image.load("image/Onigashima.png")
+image11=pygame.image.load("image/chantier.png")
+image12=pygame.image.load("image/Sunny.png")
+image13=pygame.image.load("image/Mer.jpg")
+image14=pygame.image.load("image/point_cardinaux.png")
+image15=pygame.image.load("image/tresor.jfif")
+image16=pygame.image.load('image/carte1.png')
+image17=pygame.image.load('image/carte2.png')
+image18=pygame.image.load('image/dialogue.png')
+image19=pygame.image.load('image/confetis.png')
+image20=pygame.image.load('image/carte3.png')
+image21=pygame.image.load('image/carte4.png')
+image22=pygame.image.load('image/carte5.png')
+image23=pygame.image.load('image/carte6.png')
+image24=pygame.image.load('image/carte7.png')
+image25=pygame.image.load('image/carte8.png')
+image26=pygame.image.load('image/carte9.png')
+image27=pygame.image.load('image/carte10.png')
+image28=pygame.image.load('image/carte11.png')
+image29=pygame.image.load('image/carte12.png')
+image30=pygame.image.load('image/carte13.png')
+image31=pygame.image.load('image/carte14.png')
+
+#police couleur...
+font = pygame.font.Font('freesansbold.ttf',20)
+
+#le texte
+text0 = font.render("Bienvenue",True,(0,0,0))
+text15 = font.render("Appuyer sur espace pour commencer a jouer",True,(0, 0, 0))
+text1 = font.render("Vous vous trouvez à la cascade", True, (0, 0 , 255))
+text2 = font.render("Vous vous trouvez dans le village de Amigasa", True, (0, 0, 255))
+text3 = font.render("Vous vous trouvez dans la région de Kibi", True, (0, 0, 255))
+text4 = font.render("Vous vous trouvez aux ruines de Oden", True, (0, 0, 255))
+text5 = font.render("Vous vous trouvez dans la région de Ringo", True, (0, 0, 255))
+text6 = font.render("Vous vous trouvez à la capitale des Fleurs", True, (0, 0, 255))
+text7 = font.render("Vous vous trouvez au village de Ebisu", True, (0, 0, 255))
+text8 = font.render("Vous vous trouvez à la carrière de Udon", True, (0, 0, 255))
+text9 = font.render("Vous vous trouvez au port de Habu", True, (0, 0, 255))
+text10 = font.render("Vous vous trouvez sur l'île de Onigashima ", True, (0, 0, 255))
+text11 = font.render("Vous vous trouvez au chantier navale de Ringo", True, (0, 0, 255))
+text12 = font.render("Vous avez obtenue le Thousand Sunny ", True, (0, 0, 255))
+text13 = font.render("Vous avez déjà récupéré votre bateau", True, (0, 0, 255))
+text14 = font.render("Vous n'avez pas de bateau pour vous rendre sur onigashima", True, (0,0,255))
+text15 = font.render("Bravo vous avez trouvé un ponéglyphe", True, (0,0,255))
+text16 = font.render("Appuyer sur espace pour commencer", True, (0,0,0))
+
+passage=0
+bateau=0
+dansQuellePierceEstLePersonnage=0
+
+# afficher le texte et l'image
+def decrireLaPiece(piece):
+    if piece==0:
+        screen.blit(text0,(270,150))
+        screen.blit(text16,(100,250))
+        screen.blit(image14,(500,0))
+        screen.blit(image16,(0,0))
+    elif piece==1:
+        screen.blit(image1,(0,0))#afficher l'image à la prochaine actualisation
+        screen.blit(image18,(0,70))
+        screen.blit(text1,(30,320))#afficher l'image à la prochaine actualisation
+        screen.blit(image14,(500,0))
+        screen.blit(image17,(0,0))
+    elif piece==2:
+        screen.blit(image2,(0,0))
+        screen.blit(image18,(0,70))
+        screen.blit(text2,(30,320))
+        screen.blit(image14,(500,0))
+        screen.blit(image20,(0,0))
+    elif piece==3:
+        screen.blit(image3,(0,0))
+        screen.blit(image18,(0,70))
+        screen.blit(text3,(30,320))
+        screen.blit(image14,(500,0))
+        screen.blit(image21,(0,0))
+    elif piece==4:
+        screen.blit(image4,(0,0))
+        screen.blit(image18,(0,70))
+        screen.blit(text4,(30,320))
+        screen.blit(image14,(500,0))
+        screen.blit(image22,(0,0))
+    elif piece==5:
+        screen.blit(image5,(0,0))
+        screen.blit(image18,(0,70))
+        screen.blit(text5,(30,320))
+        screen.blit(image14,(500,0))
+        screen.blit(image23,(0,0))
+    elif piece==6:
+        screen.blit(image6,(0,-50))
+        screen.blit(image18,(0,70))
+        screen.blit(text6,(30,320))
+        screen.blit(image14,(500,0))
+        screen.blit(image26,(0,0))
+    elif piece==7:
+        screen.blit(image7,(0,0))
+        screen.blit(image18,(0,70))
+        screen.blit(text7,(30,320))
+        screen.blit(image14,(500,0))
+        screen.blit(image25,(0,0))
+    elif piece==8:
+        screen.blit(image8,(0,0))
+        screen.blit(image18,(0,70))
+        screen.blit(text8,(30,320))
+        screen.blit(image14,(500,0))
+        screen.blit(image27,(0,0))
+    elif piece==9:
+        screen.blit(image9,(0,0))
+        screen.blit(image18,(0,70))
+        screen.blit(text9,(30,320))
+        screen.blit(image14,(500,0))
+        screen.blit(image28,(0,0))
+    elif piece==10:
+        screen.blit(image24,(0,0))
+        if bateau==1:
+            screen.blit(image10,(0,0))
+            screen.blit(image18,(0,70))
+            screen.blit(text10,(30,320))
+            screen.blit(image14,(500,0))
+            screen.blit(image29,(0,0))
+        else:
+            screen.blit(image13,(0,0))
+            screen.blit(image18,(0,70))
+            screen.blit(text14,(30,320))
+            screen.blit(image14,(500,0))
+            screen.blit(image28,(0,0))
+    elif piece==11:
+        screen.blit(image11,(0,0))
+        screen.blit(image18,(0,70))
+        screen.blit(text11,(30,320))
+        screen.blit(image14,(500,0))
+        screen.blit(image31,(0,0))
+        if passage==0:
+            screen.blit(image12,(150,50))
+            screen.blit(image18,(0,-220))
+            screen.blit(text12,(30,20))
+            screen.blit(image14,(500,0))
+        else:
+            screen.blit(image18,(0,-220))
+            screen.blit(text13,(30,20))
+            screen.blit(image14,(500,0))
+    elif piece==12:
+        screen.blit(image15,(0,0))
+        screen.blit(image19,(0,0))
+        screen.blit(image18,(0,70))
+        screen.blit(text15,(30,320))
+        screen.blit(image30,(0,0))
+#décision/action dans le jeu
+def decision(direction,piece):
+    print("Vous désirez allez au ", direction)
+    memorisePiece=piece
+#Espace: pour commencer le jeu
+    if direction==' ':
+        if piece==0:
+            piece=1
+#N: pour aller au Nord
+    if direction=='n':
+        if piece==1:
+            piece=2
+        elif piece==4:
+            piece=6
+        elif piece==5:
+            piece=7
+        elif piece==9:
+            piece=10
+        elif piece==11:
+            def pas():
+                global passage
+                global bateau
+                if passage==0:
+                    passage=passage+1
+                    bateau=bateau+1
+                else:
+                    print("...")
+            pas()
+            piece=5
+        elif piece==10:
+            if passage==0:
+                print(...)
+            else:
+                piece=12
+#S: pour aller au Sud
+    elif direction=='s':
+        if piece==2:
+            piece=1
+        elif piece==6:
+            piece=5
+        elif piece==7:
+            piece=5
+        elif piece==10:
+            piece=9
+        elif piece==5:
+            piece=11
+#E: pour aller a l'Est
+    elif direction=='e':
+        if piece==2:
+            piece=3
+        elif piece==3:
+            piece=4
+        elif piece==4:
+            piece=5
+        elif piece==6:
+            piece=7
+        elif piece==8:
+            piece=6
+        elif piece==9:
+            piece=8
+#O: pour aller à l'Ouest
+    elif direction=='o':
+        if piece==3:
+            piece=2
+        elif piece==4:
+            piece=3
+        elif piece==5:
+            piece=4
+        elif piece==7:
+            piece=6
+        elif piece==6:
+            piece=8
+        elif piece==8:
+            piece=9
+#Q: pour quitter
+    elif direction=='q':
+        print("Au revoir")
+    if memorisePiece==piece:
+        print("Déplacement impossible")
+    return piece
+loop = True
+
+#boucle tant que cette condition est vraie
+while loop:
+
+#appliquer l'arrière plan du jeu
+    screen.blit(background,(0,0))
+
+#si le joueur ferme la fenetre
+    for event in pygame.event.get():
+
+#que l'evenement est fermeture de fenetre
+        if event.type==pygame.QUIT:
+            loop=False
+            print("Fermeture du jeu")
+
+#lecture du clavier
+        elif event.type == pygame.KEYDOWN:
+            dansQuellePierceEstLePersonnage=decision(event.unicode,dansQuellePierceEstLePersonnage)
+
+#touche q pour quitter
+            if event.key == pygame.K_ESCAPE or event.unicode == 'q':
+                loop = False
+                print("Fermeture du jeu")
+    decrireLaPiece(dansQuellePierceEstLePersonnage)
+
+#actualisation
+    pygame.display.flip()
+pygame.quit()
